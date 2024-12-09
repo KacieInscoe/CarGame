@@ -14,7 +14,7 @@ class Game(simpleGE.Scene):
         
         self.car = Car(self)
         self.timer = simpleGE.Timer()
-        
+        self.timer.totalTime = 50
         
         
         self.lblScore = LblScore()
@@ -132,7 +132,8 @@ class Instructions (simpleGE.Scene):
         self.instructions = simpleGE.MultiLabel()
         self.instructions.textLines = [
         "you are a racer",
-        "who is trying to qualify for the piston cup.",
+        "who has 50 seconds to get as",
+        "many laps as you can.",
         "drive with the right left and",
         "up and down arrow keys",
         "and try to finish with the best time",
