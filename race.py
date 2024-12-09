@@ -1,6 +1,8 @@
-import pygame, simpleGE, time
+"""Kacie Inscoe"""
+
 """ time trial race"""
-score = 1
+import pygame, simpleGE, time
+
 checkp1 = False
 checkp2 = False
 checkp3 = False
@@ -14,8 +16,8 @@ class Game(simpleGE.Scene):
         
         self.car = Car(self)
         self.timer = simpleGE.Timer()
-        self.timer.totalTime = 50
-        
+        self.timer.totalTime = 12
+        self.score = 0
         
         self.lblScore = LblScore()
         self.lblTime = LblTime()
@@ -35,14 +37,8 @@ class Game(simpleGE.Scene):
         if self.timer.getTimeLeft() < 0:
             print(f"Final Score: {self.score}")
             self.stop()
-        if(checkp1 and checkp2 and checkp3 and checkp4):
-            checkp1 = False
-            checkp2 = False
-            checkp3 = False
-            checkp4 = False
-            score += 1
-            print (score)
         
+              
 
     def processEvent(self, event):
         if event.type == pygame.KEYDOWN:
@@ -66,7 +62,7 @@ class Car(simpleGE.Sprite,):
         
         
     def process(self):
-        global score, checkp1, checkp2, checkp3, checkp4
+        global  checkp1, checkp2, checkp3, checkp4
         if self.isKeyPressed(pygame.K_LEFT):
             self.turnBy(5)
         if self.isKeyPressed(pygame.K_RIGHT):
@@ -101,19 +97,21 @@ class Car(simpleGE.Sprite,):
             
             
         if(checkp1 and checkp2 and checkp3 and checkp4):
+            score = 0
             checkp1 = False
             checkp2 = False
             checkp3 = False
             checkp4 = False
             score += 1
             print (score)
-            
+            self.lblScore.text = (f"{score}")
         #print(f"{self.position[0]} , {self.position[1]}")
         
 class LblScore(simpleGE.Label):
-    global score
     def __init__(self):
-        self.text = (f"laps: {score}")
+        super().__init__()
+        score = 0
+        self.text = (f"laps:{score}")
         self.center = (100, 30)
         
 class LblTime(simpleGE.Label):
@@ -133,12 +131,11 @@ class Instructions (simpleGE.Scene):
         self.instructions.textLines = [
         "you are a racer",
         "who has 50 seconds to get as",
-        "many laps as you can.",
+        "many laps as you can",
         "drive with the right left and",
         "up and down arrow keys",
-        "and try to finish with the best time",
-        "",
-        "Gods speed!"]
+        "and try to finish with the most laps",
+        ]
         
         self.instructions.center = (320, 240)
         self.instructions.size = (500, 250)
@@ -175,7 +172,7 @@ class Instructions (simpleGE.Scene):
 
 def main():
     keepGoing = True
-    global score
+    score = 0
     while keepGoing:
         instructions = Instructions(score)
         instructions.start()
@@ -186,8 +183,7 @@ def main():
             score = game.score
         else:
             keepGoing = False
-#     game = Game()
-#     game.start()
+
     
 if __name__ == "__main__":
     main()
