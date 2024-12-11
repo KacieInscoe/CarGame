@@ -1,0 +1,76 @@
+# CarGame
+Define Game class:
+    Constructor:
+        - Set background image to "track copy.xcf"
+        - Create car object
+        - Create timer with 50 seconds
+        - Initialize score to 0
+        - Create score and time labels
+        - Create black-and-white track sprite and hide it
+        - Add all sprites to a list
+        - Set window caption to "B for black and white, C for color"
+    
+   Method: process
+        - Update the time left label with the remaining time
+        - If time is up (timer < 0):
+            - Print final score
+            - Stop the game
+    
+  Method: processEvent
+        - If key pressed (KEYDOWN event):
+            - If 'B' key pressed, show black-and-white track
+            - If 'C' key pressed, hide black-and-white track
+
+Define Car class:
+    Constructor:
+        - Set image for the car sprite
+        - Set size of the car
+        - Set movement speed to 5
+        - Load the black-and-white track map
+        - Create score label
+    
+  Method: process
+        - If left arrow key pressed, turn car left by 5 degrees
+        - If right arrow key pressed, turn car right by 5 degrees
+        - If up arrow key pressed, move car forward by speed
+        - If down arrow key pressed, move car backward by 3 units
+        - Check the color of the track under the car:
+            - If white, reduce car speed to 1
+            - Otherwise, set car speed to 5
+        
+ - Check if car is within predefined checkpoint areas:
+- If car crosses checkpoint 1, set checkp1 = True
+  - If car crosses checkpoint 2, set checkp2 = True
+    - If car crosses checkpoint 3, set checkp3 = True
+      - If car crosses checkpoint 4, set checkp4 = True
+        
+      - If all checkpoints are passed, update score and   reset checkpoints
+
+Define LblScore class (for displaying score):
+    Constructor:
+        - Set initial text to "laps: 0"
+        - Position label at the top left corner
+
+Define LblTime class (for displaying time):
+    Constructor:
+        - Set initial text to "Time: 10"
+        - Position label at the top right corner
+
+Define Instructions class:
+    Constructor:
+        - Set background image to "track copy.xcf"
+        - Create instructions text
+        - Display last score
+        - Create "Play" and "Quit" buttons
+        - Add all UI elements (instructions, score, buttons) to a sprite list
+    
+   Method: process
+        - If "Quit" button clicked, stop the game
+        - If "Play" button clicked, start a new game
+
+Define main function:
+    - Initialize keepGoing to True and score to 0
+    - While keepGoing is True:
+        - Show instructions screen and wait for user input
+        - If user selects "Play", start a new game and update score
+        - If user selects "Quit", exit the loop
